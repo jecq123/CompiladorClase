@@ -1,0 +1,16 @@
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\bin\Debug\netcoreapp3.1\Compilador.exe
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\bin\Debug\netcoreapp3.1\Compilador.deps.json
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\bin\Debug\netcoreapp3.1\Compilador.runtimeconfig.json
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\bin\Debug\netcoreapp3.1\Compilador.runtimeconfig.dev.json
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\bin\Debug\netcoreapp3.1\Compilador.dll
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\bin\Debug\netcoreapp3.1\Compilador.pdb
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.csproj.AssemblyReference.cache
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.Form1.resources
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.csproj.GenerateResource.cache
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.AssemblyInfoInputs.cache
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.AssemblyInfo.cs
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.csproj.CoreCompileInputs.cache
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.dll
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.pdb
+C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\obj\Debug\netcoreapp3.1\Compilador.genruntimeconfig.cache

@@ -1,9 +1,3 @@
 is_global = true
-build_property.ApplicationManifest = 
-build_property.StartupObject = 
-build_property.ApplicationDefaultFont = 
-build_property.ApplicationHighDpiMode = 
-build_property.ApplicationUseCompatibleTextRendering = 
-build_property.ApplicationVisualStyles = 
 build_property.RootNamespace = Compilador
-build_property.ProjectDir = C:\Users\Juan Esteban\source\repos\Compilador\Compilador\
+build_property.ProjectDir = C:\Users\Alexander\OneDrive - UCO\Compiladores\CompiladorClase\CompiladorClase\Compilador\

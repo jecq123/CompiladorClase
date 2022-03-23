@@ -87,7 +87,30 @@ namespace CompiladorClase.AnalisisLexico
         {
             return esIgual(CategoriaGramatical.FIN_LINEA, caracterActual);
         }
-
+        private bool esComa()
+        {
+            return ",".Equals(caracterActual);
+        }
+        private bool esSuma()
+        {
+            return "+".Equals(caracterActual);
+        }
+        private bool esResta()
+        {
+            return "-".Equals(caracterActual);
+        }
+        private bool esMultiplicacion()
+        {
+            return "*".Equals(caracterActual);
+        }
+        private bool esDivision()
+        {
+            return "/".Equals(caracterActual);
+        }
+        private bool esAsterizco()
+        {
+            return "*".Equals(caracterActual);
+        }
         public ComponenteLexico devolderSiguienteComponente()
         {
             ComponenteLexico retorno= null;
@@ -113,6 +136,26 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 1;
                         lexema = lexema + caracterActual;
                     }
+                    else if (esSuma())
+                    {
+                        estadoactual = 5;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esResta())
+                    {
+                        estadoactual = 6;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esMultiplicacion())
+                    {
+                        estadoactual = 7;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 8;
+                        lexema = lexema + caracterActual;
+                    }
                     else if (esFinLinea())
                     {
                         estadoactual = 13;
@@ -124,14 +167,49 @@ namespace CompiladorClase.AnalisisLexico
                 }
                 else if (estadoactual == 1)
                 {
+                    leerSiguienteCaracter();
+                    if (esDigito())
+                    {
+                        estadoactual = 1;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esComa())
+                    {
+                        estadoactual = 2;
+                        lexema = lexema + caracterActual;
+                    }
+                    else
+                    {
+                        estadoactual = 14;
+                    }
 
                 }
                 else if (estadoactual == 2)
                 {
+                    leerSiguienteCaracter();
+                    if (esDigito())
+                    {
+                        estadoactual = 3;
+                        lexema = lexema + caracterActual;
+                    }
+                    else
+                    {
+                        estadoactual = 17;
+                    }
 
                 }
                 else if (estadoactual == 3)
                 {
+                    leerSiguienteCaracter();
+                    if (esDigito())
+                    {
+                        lexema = lexema + caracterActual;
+                        estadoactual = 3;
+                    }
+                    else
+                    {
+                        estadoactual = 15;
+                    }
 
                 }
                 else if (estadoactual == 4)
@@ -149,18 +227,36 @@ namespace CompiladorClase.AnalisisLexico
                 }
                 else if (estadoactual == 5)
                 {
-
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ENTERO, lexema);
                 }
                 else if (estadoactual == 6)
                 {
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.RESTA, lexema);
 
                 }
                 else if (estadoactual == 7)
                 {
-
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.MULTIPLICACION, lexema);
                 }
                 else if (estadoactual == 8)
                 {
+                    leerSiguienteCaracter();
+                    if(esAsterizco())
+                    {
+                        estadoactual = 34;
+
+                    }
+                    else if(esDivision())
+                    {
+                        estadoactual = 36;
+                    }
+                    else
+                    {
+                       estadoactual = 33;
+                    }
 
                 }
                 else if (estadoactual == 9)
@@ -186,10 +282,16 @@ namespace CompiladorClase.AnalisisLexico
                 }
                 else if (estadoactual == 14)
                 {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ENTERO, lexema);
 
                 }
                 else if (estadoactual == 15)
                 {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.DECIMAL, lexema);
 
                 }
                 else if (estadoactual == 16)
@@ -210,6 +312,138 @@ namespace CompiladorClase.AnalisisLexico
                 {
                     throw new Exception("Error critico de tipo lexico: Se detuvo el analisis!!!!");
                 }
+                else if (estadoactual == 19)
+                {
+
+                }
+                else if (estadoactual == 20)
+                {
+
+                }
+                else if (estadoactual == 21)
+                {
+
+                }
+                else if (estadoactual == 22)
+                {
+
+                }
+                else if (estadoactual == 23)
+                {
+
+                }
+                else if (estadoactual == 24)
+                {
+
+                }
+                else if (estadoactual == 25)
+                {
+
+                }
+                else if (estadoactual == 26)
+                {
+
+                }
+                else if (estadoactual == 27)
+                {
+
+                }
+                else if (estadoactual == 28)
+                {
+
+                }
+                else if (estadoactual == 29)
+                {
+
+                }
+                else if (estadoactual == 30)
+                {
+
+                }
+                else if (estadoactual == 31)
+                {
+
+                }
+                else if (estadoactual == 32)
+                {
+
+                }
+                else if (estadoactual == 33)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    lexema = "/";
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.DIVISION, lexema);
+                }
+                else if (estadoactual == 34)
+                {
+                    leerSiguienteCaracter();
+                    if (esAsterizco())
+                    {
+                        estadoactual = 35;
+                    }
+                    else if(CategoriaGramatical.FIN_LINEA.Equals(caracterActual))
+                    {
+                        estadoactual = 37;
+                    }
+                    else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
+                    {
+                        estadoactual = 38;
+                    }
+                    else
+                    {
+                        estadoactual = 34;
+                    }
+
+                }
+                else if (estadoactual == 35)
+                {
+                    leerSiguienteCaracter();
+                    if (esAsterizco())
+                    {
+                        estadoactual = 35;
+                    }
+                    else if(CategoriaGramatical.FIN_LINEA.Equals(caracterActual))
+                    {
+                        estadoactual = 37;
+                    }
+                    else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
+                    {
+                        estadoactual = 38;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 0;
+                    }
+                    else
+                    {
+                        estadoactual = 34;
+                    }
+
+                }
+                else if (estadoactual == 36)
+                {
+                    leerSiguienteCaracter();
+                    if (CategoriaGramatical.FIN_LINEA.Equals(caracterActual))
+                    {
+                        estadoactual = 13;
+                    }
+                    else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
+                    {
+                        //tenemos pendientes este analisis
+                    }
+
+                }
+                else if (estadoactual == 37)
+                {
+                    cargarNuevaLinea();
+                    estadoactual = 34;
+                }
+                else if (estadoactual == 38)
+                {
+                    throw new Exception("Comentario no cerrado!!!!");
+                }
+
             }
             return retorno;
         }
