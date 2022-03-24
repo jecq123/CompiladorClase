@@ -111,6 +111,40 @@ namespace CompiladorClase.AnalisisLexico
         {
             return "*".Equals(caracterActual);
         }
+        private bool esModulo()
+        {
+            return "%".Equals(caracterActual);
+        }
+        private bool esParentecisAbre()
+        {
+            return "(".Equals(caracterActual);
+        }
+        private bool esParentecisCierra()
+        {
+            return ")".Equals(caracterActual);
+        }
+        private bool esIgual()
+        {
+            return "=".Equals(caracterActual);
+        }
+        private bool esMenorQue()
+        {
+            return "<".Equals(caracterActual);
+        }
+        private bool esMayorQue()
+        {
+            return "<".Equals(caracterActual);
+        }
+        private bool esDiferente()
+        {
+            return "!".Equals(caracterActual);
+        }
+        private bool esDosPuntos()
+        {
+            return ":".Equals(caracterActual);
+        }
+
+
         public ComponenteLexico devolderSiguienteComponente()
         {
             ComponenteLexico retorno= null;
@@ -154,6 +188,50 @@ namespace CompiladorClase.AnalisisLexico
                     else if (esDivision())
                     {
                         estadoactual = 8;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esModulo())
+                    {
+                        estadoactual = 9;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esParentecisAbre())
+                    {
+                        estadoactual = 10;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esParentecisCierra())
+                    {
+                        estadoactual = 11;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
+                    {
+                        estadoactual = 12;
+                    }
+                    else if (esIgual())
+                    {
+                        estadoactual = 19;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esMenorQue())
+                    {
+                        estadoactual = 20;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esMayorQue())
+                    {
+                        estadoactual = 21;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esDosPuntos())
+                    {
+                        estadoactual = 22;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esDiferente())
+                    {
+                        estadoactual = 30;
                         lexema = lexema + caracterActual;
                     }
                     else if (esFinLinea())
@@ -261,18 +339,25 @@ namespace CompiladorClase.AnalisisLexico
                 }
                 else if (estadoactual == 9)
                 {
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.MODULO, lexema);
 
                 }
                 else if (estadoactual == 10)
                 {
-
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.PARENTESIS_ABRE, lexema);
                 }
                 else if (estadoactual == 11)
                 {
-
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.PARENTESIS_CIERRA, lexema);
                 }
                 else if (estadoactual == 12)
                 {
+                    //Revisar que hacer con el fin de archivo @EOF@
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_ARCHIVO, lexema);
 
                 }
                 else if (estadoactual == 13)
@@ -314,59 +399,116 @@ namespace CompiladorClase.AnalisisLexico
                 }
                 else if (estadoactual == 19)
                 {
-
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.IGUAL, lexema);
                 }
                 else if (estadoactual == 20)
                 {
-
+                    leerSiguienteCaracter();
+                    if(esMayorQue())
+                    {
+                        estadoactual = 23;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if(esIgual())
+                    {
+                        estadoactual = 24;
+                        lexema = lexema + caracterActual;
+                    }
+                    else
+                    {
+                        estadoactual = 25;
+                    }
                 }
                 else if (estadoactual == 21)
                 {
+                    leerSiguienteCaracter();
+                    if (esIgual())
+                    {
+                        estadoactual = 26;
+                        lexema = lexema + caracterActual;
+                    }
+                    else
+                    {
+                        estadoactual = 27;
+                    }
 
                 }
                 else if (estadoactual == 22)
                 {
+                    leerSiguienteCaracter();
+                    if (esIgual())
+                    {
+                        estadoactual = 28;
+                        lexema = lexema + caracterActual;
+                    }
+                    else
+                    {
+                        estadoactual = 29;
+                    }
 
                 }
                 else if (estadoactual == 23)
                 {
-
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.DIFERENTE_QUE, lexema);
                 }
                 else if (estadoactual == 24)
                 {
-
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.MENOR_O_IGUAL_QUE, lexema);
                 }
                 else if (estadoactual == 25)
                 {
-
+                    devolverPuntero();
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.MENOR_QUE, lexema);
                 }
                 else if (estadoactual == 26)
                 {
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.MAYOR_O_IGUAL_QUE, lexema);
 
                 }
                 else if (estadoactual == 27)
                 {
-
+                    devolverPuntero();
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.MAYOR_QUE, lexema);
                 }
                 else if (estadoactual == 28)
                 {
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
 
                 }
                 else if (estadoactual == 29)
                 {
+                    throw new Exception("Error asignacion no valido!!!!");
 
                 }
                 else if (estadoactual == 30)
                 {
-
+                    leerSiguienteCaracter();
+                    if (esIgual())
+                    {
+                        estadoactual = 31;
+                        lexema = lexema + caracterActual;
+                    }
+                    else
+                    {
+                        estadoactual = 32;
+                    }
                 }
                 else if (estadoactual == 31)
                 {
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.DIFERENTE_QUE, lexema);
 
                 }
                 else if (estadoactual == 32)
                 {
-
+                    throw new Exception("Error asignacion no valida!!!!");
                 }
                 else if (estadoactual == 33)
                 {

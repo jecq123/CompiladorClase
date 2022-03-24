@@ -10,5 +10,14 @@ namespace CompiladorClase.Trasnversal
         public static string FIN_LINEA = "@FL@";
         public static string IDENTIFICADOR = "IDENTIFICADOR";
         public static string DECIMAL = "DECIMAL";
+        public static string ENTERO = "ENTERO";
+        public static string SUMA = "SUMA";
+        public static string RESTA = "RESTA";
+        public static string MULTIPLICACION = "MULTIPLICACION";
+        public static string DIVISION = "DIVISION";
+        public static string ASIGNAION = "ASIGNAION";
+        public static string PARENTESIS_ABRE = "PARENTESIS ABRE";
+        public static string PARENTESIS_CIERRA = "PARENTESIS CIERRA";
+        public static string BLANCO = "BLANCO";
     }
 }
