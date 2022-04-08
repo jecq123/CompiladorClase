@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hVXr/XZVor/sVBFyI3J+t5/U4WvIXdLZ1fZado4xsCbvxbtuElW4qrr9cwnJbh3EeEqBGZFR8C2cN7fHy+/bFg==",
+  "dgSpecHash": "sfndQ/66Go+vSL5SR3TNdjF68wQVBU7c2ZFFvYt69s0Lj7l6ppneyQHy2CDbJcz6Zx2PmRsuV3IljJ2ol1d55g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Alexander\\OneDrive - UCO\\Compiladores\\CompiladorClase\\CompiladorClase\\Compilador\\Compilador.csproj",
+  "projectFilePath": "C:\\Users\\Juan Esteban\\source\\repos\\CompiladorClase\\Compilador\\Compilador.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

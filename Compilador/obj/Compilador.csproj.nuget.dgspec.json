@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alexander\\OneDrive - UCO\\Compiladores\\CompiladorClase\\CompiladorClase\\Compilador\\Compilador.csproj": {}
+    "C:\\Users\\Juan Esteban\\source\\repos\\CompiladorClase\\Compilador\\Compilador.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alexander\\OneDrive - UCO\\Compiladores\\CompiladorClase\\CompiladorClase\\Compilador\\Compilador.csproj": {
+    "C:\\Users\\Juan Esteban\\source\\repos\\CompiladorClase\\Compilador\\Compilador.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alexander\\OneDrive - UCO\\Compiladores\\CompiladorClase\\CompiladorClase\\Compilador\\Compilador.csproj",
+        "projectUniqueName": "C:\\Users\\Juan Esteban\\source\\repos\\CompiladorClase\\Compilador\\Compilador.csproj",
         "projectName": "Compilador",
-        "projectPath": "C:\\Users\\Alexander\\OneDrive - UCO\\Compiladores\\CompiladorClase\\CompiladorClase\\Compilador\\Compilador.csproj",
-        "packagesPath": "C:\\Users\\Alexander\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alexander\\OneDrive - UCO\\Compiladores\\CompiladorClase\\CompiladorClase\\Compilador\\obj\\",
+        "projectPath": "C:\\Users\\Juan Esteban\\source\\repos\\CompiladorClase\\Compilador\\Compilador.csproj",
+        "packagesPath": "C:\\Users\\Juan Esteban\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Juan Esteban\\source\\repos\\CompiladorClase\\Compilador\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Alexander\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Juan Esteban\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,7 +61,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
