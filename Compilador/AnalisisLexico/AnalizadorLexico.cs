@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Compilador.Error;
 using CompiladorClase.Cache;
 using CompiladorClase.Trasnversal;
 
@@ -389,13 +390,23 @@ namespace CompiladorClase.AnalisisLexico
                 else if (estadoactual == 17)
                 {
                     //falta gestor de errores
+
                     continuarAnalisis = false;
                     devolverPuntero();
                     retorno = ComponenteLexico.crearDummy(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.DECIMAL, lexema + "0");
-                    
+                    ManejadorError.obtenerManejadorError().agregar(
+                        ComponenteError.crearErrorLexico(retorno.obtenerNumeroLinea(), retorno.obtenerPosicionInicial(), retorno.obtenerPosicionFinal(),
+                        "Se esperaba un digito y se recibio " + caracterActual, 
+                        "No es posible formar un numero decimal con caracteres diferentes a digitos", 
+                        "Asegurese que en la pocision indicada aparezca un digito"));
                 }
                 else if (estadoactual == 18)
                 {
+                    ManejadorError.obtenerManejadorError().agregar(
+                        ComponenteError.crearErrorLexico(numeroLineaActual, apuntador-1, apuntador - 1,
+                        "Se recibio el caracter " + caracterActual,
+                        "Simbolo no reconocido dentro del lenguaje",
+                        "Asegurese de que el caracter sea valido o permitido dentro del lenguaje"));
                     throw new Exception("Error critico de tipo lexico: Se detuvo el analisis!!!!");
                 }
                 else if (estadoactual == 19)
@@ -486,6 +497,11 @@ namespace CompiladorClase.AnalisisLexico
                 }
                 else if (estadoactual == 29)
                 {
+                    ManejadorError.obtenerManejadorError().agregar(
+                       ComponenteError.crearErrorLexico(numeroLineaActual, apuntador - 1, apuntador - 1,
+                       "Se esperaba un = y se recibio " + caracterActual,
+                       "Simbolo no reconocido dentro del lenguaje",
+                       "Asegurese de completar la asignacion"));
                     throw new Exception("Error asignacion no valido!!!!");
 
                 }
@@ -510,7 +526,12 @@ namespace CompiladorClase.AnalisisLexico
                 }
                 else if (estadoactual == 32)
                 {
-                    throw new Exception("Error asignacion no valida!!!!");
+                    ManejadorError.obtenerManejadorError().agregar(
+                       ComponenteError.crearErrorLexico(numeroLineaActual, apuntador - 1, apuntador - 1,
+                       "Se esperaba un = y se recibio " + caracterActual,
+                       "Simbolo no reconocido dentro del lenguaje",
+                       "Asegurese de completar el diferente que"));
+                    throw new Exception("Error caracter no valido!!!!");
                 }
                 else if (estadoactual == 33)
                 {
@@ -585,6 +606,11 @@ namespace CompiladorClase.AnalisisLexico
                 }
                 else if (estadoactual == 38)
                 {
+                    ManejadorError.obtenerManejadorError().agregar(
+                       ComponenteError.crearErrorLexico(numeroLineaActual, apuntador - 1, apuntador - 1,
+                       "Se esperaba */ y se recibio " + caracterActual,
+                       "Se termino el archivo sin cerrar el comentario",
+                       "Asegurese de cerrar el comentario"));
                     throw new Exception("Comentario no cerrado!!!!");
                 }
 
