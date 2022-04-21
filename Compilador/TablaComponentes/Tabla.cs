@@ -38,7 +38,7 @@ namespace Compilador.TablaComponentes
 
         public List<ComponenteLexico> ObtenerComponentes(TipoComponente tipo)
         {
-            List<ComponenteLexico> lista = new List<ComponenteLexico>;
+            List<ComponenteLexico> lista = new List<ComponenteLexico>();
             if (TipoComponente.LITERAL.Equals(tipo))
             {
                 lista = TablaLiterales.obtenerTabla().obtenerComponentes();
