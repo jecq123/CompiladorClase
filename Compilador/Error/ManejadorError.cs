@@ -15,7 +15,7 @@ namespace Compilador.Error
             reiniciar();
         }
 
-        private void reiniciar()
+        public void reiniciar()
         {
             errores = new Dictionary<TipoError, List<ComponenteError>>();
             errores.Add(TipoError.LEXICO, new List<ComponenteError>());

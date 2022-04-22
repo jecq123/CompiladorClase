@@ -1,4 +1,5 @@
-﻿using Compilador.TablaComponentes;
+﻿using Compilador.Error;
+using Compilador.TablaComponentes;
 using CompiladorClase.AnalisisLexico;
 using CompiladorClase.Cache;
 using CompiladorClase.Trasnversal;
@@ -28,6 +29,7 @@ namespace Compilador
         {
             Tabla tabla = Tabla.obtenerTabla();
             tabla.Reiniciar();
+            ManejadorError.obtenerManejadorError().reiniciar();
             ProgramaFuente cache = ProgramaFuente.obtenerProgramaFuente();
 
             txtConsole.Text = String.Empty;
@@ -39,12 +41,19 @@ namespace Compilador
             AnalizadorLexico analisador = AnalizadorLexico.crear();
             ComponenteLexico componente = analisador.devolderSiguienteComponente();
 
-            while (!CategoriaGramatical.FIN_ARCHIVO.Equals(componente.obtenerCategoria()))
+            try
             {
-
-                componente = analisador.devolderSiguienteComponente();
+                while (!CategoriaGramatical.FIN_ARCHIVO.Equals(componente.obtenerCategoria()))
+                {
+                    componente = analisador.devolderSiguienteComponente();
+                }
+            } catch (Exception error)
+            {
+                MessageBox.Show("Error Stopper, no es posible coninuar la ejecución del programa");
             }
+            
             agregarTablas();
+            listarErrores();
         }
 
         private void procesarTexto()
@@ -126,73 +135,52 @@ namespace Compilador
             dataGridView4.DataSource = simboloData;
         }
 
+        private void listarErrores()
+        {
+            var erroresDGV = ManejadorError.obtenerManejadorError().obtenerErrores()
+                .Select(r => new
+                {
+                    numeroLinea = r.obtenerNumeroLinea().ToString(),
+                    posicionInicial = r.obtenerPosicionInicial().ToString(),
+                    posicionFinal = r.obtenerPosicionFinal().ToString(),
+                    causa = r.obtenerCausa(),
+                    falla = r.obtenerFalla(),
+                    solucion = r.obtenerSolucion(),
+                    tipo = r.obtenerTipo().ToString()
+                }).ToList();
+            dataGridView5.DataSource = erroresDGV;
+        }
+
         private void rbtnText_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnText.Checked)
-            {
-                groupBox2.Show();
-                groupBox1.Hide();
-                groupBox3.Hide();
-            }
-            else if (rbtnFile.Checked)
-            {
-                groupBox1.Show();
-                groupBox2.Hide();
-                groupBox3.Hide();
-            }
-            else if (ListaComponente.Checked)
-            {
-                groupBox3.Show();
-                groupBox1.Hide();
-                groupBox2.Hide();
-
-            }
+            cerrarVistas();
+            groupBox2.Show();
         }
 
         private void rbtnFile_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnText.Checked)
-            {
-                groupBox2.Show();
-                groupBox1.Hide();
-                groupBox3.Hide();
-            }
-            else if (rbtnFile.Checked)
-            {
-                groupBox1.Show();
-                groupBox2.Hide();
-                groupBox3.Hide();
-            }
-            else if (ListaComponente.Checked)
-            {
-                groupBox3.Show();
-                groupBox1.Hide();
-                groupBox2.Hide();
+            cerrarVistas();
+            groupBox1.Show();
+        }
 
-            }
+        private void cerrarVistas()
+        {
+            groupBox2.Hide();
+            groupBox1.Hide();
+            groupBox3.Hide();
+            groupBox4.Hide();
         }
 
         private void ListaComponente_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnText.Checked)
-            {
-                groupBox2.Show();
-                groupBox1.Hide();
-                groupBox3.Hide();
-            }
-            else if (rbtnFile.Checked)
-            {
-                groupBox1.Show();
-                groupBox2.Hide();
-                groupBox3.Hide();
-            }
-            else if (ListaComponente.Checked)
-            {
-                groupBox3.Show();
-                groupBox1.Hide();
-                groupBox2.Hide();
+            cerrarVistas();
+            groupBox3.Show();
+        }
 
-            }
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            cerrarVistas();
+            groupBox4.Show();
         }
     }
     public static class WinFormsExtensions

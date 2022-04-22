@@ -48,6 +48,9 @@ namespace Compilador
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.dataGridView5 = new System.Windows.Forms.DataGridView();
+            this.rbtnErrores = new System.Windows.Forms.RadioButton();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -55,6 +58,8 @@ namespace Compilador
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.SuspendLayout();
             // 
             // ListaComponente
@@ -250,11 +255,43 @@ namespace Compilador
             this.dataGridView1.Size = new System.Drawing.Size(744, 93);
             this.dataGridView1.TabIndex = 0;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.dataGridView5);
+            this.groupBox4.Location = new System.Drawing.Point(8, 42);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(784, 444);
+            this.groupBox4.TabIndex = 27;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "groupBox4";
+            // 
+            // dataGridView5
+            // 
+            this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView5.Location = new System.Drawing.Point(6, 26);
+            this.dataGridView5.Name = "dataGridView5";
+            this.dataGridView5.RowHeadersWidth = 51;
+            this.dataGridView5.RowTemplate.Height = 29;
+            this.dataGridView5.Size = new System.Drawing.Size(771, 412);
+            this.dataGridView5.TabIndex = 0;
+            // 
+            // rbtnErrores
+            // 
+            this.rbtnErrores.AutoSize = true;
+            this.rbtnErrores.Location = new System.Drawing.Point(449, 12);
+            this.rbtnErrores.Name = "rbtnErrores";
+            this.rbtnErrores.Size = new System.Drawing.Size(76, 24);
+            this.rbtnErrores.TabIndex = 28;
+            this.rbtnErrores.Text = "errores";
+            this.rbtnErrores.UseVisualStyleBackColor = true;
+            this.rbtnErrores.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 861);
+            this.Controls.Add(this.rbtnErrores);
             this.Controls.Add(this.ListaComponente);
             this.Controls.Add(this.btnCompilar);
             this.Controls.Add(this.rbtnFile);
@@ -263,6 +300,7 @@ namespace Compilador
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupBox2.ResumeLayout(false);
@@ -275,6 +313,8 @@ namespace Compilador
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,6 +341,9 @@ namespace Compilador
         private System.Windows.Forms.DataGridView dataGridView4;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.DataGridView dataGridView5;
+        private System.Windows.Forms.RadioButton rbtnErrores;
     }
 }
 
