@@ -7,7 +7,7 @@ using CompiladorClase.Trasnversal;
 
 namespace CompiladorClase.AnalisisLexico
 {
-    class AnalizadorLexico
+    public class AnalizadorLexico
     {
         private int numeroLineaActual;
         private int apuntador;

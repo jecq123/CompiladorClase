@@ -1,4 +1,5 @@
-﻿using Compilador.Error;
+﻿using Compilador.AnalisisSintactico;
+using Compilador.Error;
 using Compilador.TablaComponentes;
 using CompiladorClase.AnalisisLexico;
 using CompiladorClase.Cache;
@@ -38,18 +39,18 @@ namespace Compilador
             {
                 txtConsole.AddLine(linea.obtenerNumeroLinea() + ">> " + linea.obtenerContenido());
             }
-            AnalizadorLexico analisador = AnalizadorLexico.crear();
-            ComponenteLexico componente = analisador.devolderSiguienteComponente();
+            
 
             try
             {
-                while (!CategoriaGramatical.FIN_ARCHIVO.Equals(componente.obtenerCategoria()))
-                {
-                    componente = analisador.devolderSiguienteComponente();
-                }
+                
+                    AnalizadorSintactico anaSin = new AnalizadorSintactico();
+                anaSin.analizar();
+                
             } catch (Exception error)
             {
                 MessageBox.Show("Error Stopper, no es posible coninuar la ejecución del programa");
+                
             }
             
             agregarTablas();

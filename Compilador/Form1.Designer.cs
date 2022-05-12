@@ -119,7 +119,7 @@ namespace Compilador
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtLines);
-            this.groupBox2.Location = new System.Drawing.Point(8, 40);
+            this.groupBox2.Location = new System.Drawing.Point(8, 41);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(783, 431);
             this.groupBox2.TabIndex = 20;
@@ -297,10 +297,10 @@ namespace Compilador
             this.Controls.Add(this.rbtnFile);
             this.Controls.Add(this.rbtnText);
             this.Controls.Add(this.txtConsole);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupBox2.ResumeLayout(false);
