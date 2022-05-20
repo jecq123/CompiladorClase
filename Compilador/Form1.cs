@@ -45,7 +45,8 @@ namespace Compilador
             {
                 
                     AnalizadorSintactico anaSin = new AnalizadorSintactico();
-                anaSin.analizar();
+                //anaSin.analizar();
+                MessageBox.Show(anaSin.analizar());
                 
             } catch (Exception error)
             {

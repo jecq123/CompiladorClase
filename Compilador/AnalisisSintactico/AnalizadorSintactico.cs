@@ -12,98 +12,220 @@ namespace Compilador.AnalisisSintactico
     {
         private ComponenteLexico componente;
         private AnalizadorLexico analizadorLexico =  AnalizadorLexico.crear();
+        private Stack<Double> pila = new Stack<double>();
+        private StringBuilder sb = new StringBuilder();
 
-        public void analizar()
+        private void formarEntrada(int numeroLlando, string nombreRegla)
+        {
+            for(int indice = 1; indice<= numeroLlando; indice++)
+            {
+                sb.Append("....");
+            }
+            sb.Append("INICIO->");
+            sb.Append(nombreRegla);
+            sb.Append("->Componente(").Append(componente.obtenerLexema()).Append(",").Append(componente.obtenerCategoria()).Append(")");
+            sb.Append("\n");
+
+        }
+        private void formarSalida(int numeroLlando, string nombreRegla)
+        {
+            for (int indice = 1; indice <= numeroLlando; indice++)
+            {
+                sb.Append("....");
+            }
+            sb.Append("FIN->");
+            sb.Append(nombreRegla);
+            sb.Append("\n");
+
+
+        }
+        private void formarOperacion(int numeroLlando, double izquierdo, double derecho, string operacion)
+        {
+            for (int indice = 1; indice <= numeroLlando; indice++)
+            {
+                sb.Append("....");
+            }
+            sb.Append("OPERANDO->").Append(izquierdo).Append(operacion).Append(derecho);
+            sb.Append("\n");
+
+
+        }
+
+        public string analizar()
         {
             pedirComponente();
-            primera();
+            primera(0);
 
             if (ManejadorError.obtenerManejadorError().hayErrores())
             {
                 MessageBox.Show("Hay errores de compilacion. Por favor verifique los reportes de error respectivos!!!");
             }
 
-            else if ("FIN_ARCHIVO".Equals(componente.obtenerCategoria().ToUpper()))
+            else if (CategoriaGramatical.FIN_ARCHIVO.Equals(componente.obtenerCategoria().ToUpper()))
             {
-                MessageBox.Show("El programa se encuentra bien escrito");
+                if (pila.Count == 1)
+                {
+                    MessageBox.Show("El programa se cuentra bien escrito. el resultado de la operacion es: " + pila.Pop());
+                }
+                else if(pila.Count>1)
+                {
+                    //MessageBox.Show(pil)
+                    MessageBox.Show("Faltaron componentes por evaluar sintacticamente");
+                }
+                else
+                {
+                    MessageBox.Show("AUNQUE SE FINALIZO EXITOSAMENTE , NO SE TIENE UN RESULTADO FINAL.");
+
+                }
+                //MessageBox.Show("El programa se encuentra bien escrito");
             }
             else
             {
                 MessageBox.Show("Faltaron componentes por evaluar sintacticamente");
             }
+            return sb.ToString();
         }
         private void pedirComponente()
         {
             componente = analizadorLexico.devolderSiguienteComponente();
         }
-        private void primera()
+        private void primera(int numeroLlamado)
         {
-            segunda();
-            primeraPrima();
+            formarEntrada(numeroLlamado, "<primer>");
+            segunda(numeroLlamado + 1 );
+            primeraPrima(numeroLlamado + 1);
+            formarSalida(numeroLlamado, "</primer>");
 
         }
-        private void primeraPrima()
+
+        private void primeraPrima(int numeroLlamado)
         {
-            if ("SUMA".Equals(componente.obtenerCategoria().ToUpper()))
+            formarEntrada(numeroLlamado, "<primer>");
+            if (CategoriaGramatical.SUMA.Equals(componente.obtenerCategoria().ToUpper()))
             {
                 pedirComponente();
-                primera();
+                primera(numeroLlamado+1);
+                if (!ManejadorError.obtenerManejadorError().hayErrores())
+                {
+                    double derecho = pila.Pop();
+                    double izquierdor = pila.Pop();
+
+                    pila.Push(izquierdor + derecho);
+                    formarOperacion(numeroLlamado + 1, izquierdor, derecho, "+");
+
+                }
             }
-            else if ("RESTA".Equals(componente.obtenerCategoria().ToUpper()))
+            else if (CategoriaGramatical.RESTA.Equals(componente.obtenerCategoria().ToUpper()))
             {
                 pedirComponente();
-                primera();
+                primera(numeroLlamado + 1);
+                if (!ManejadorError.obtenerManejadorError().hayErrores())
+                {
+                    double derecho = pila.Pop();
+                    double izquierdor = pila.Pop();
+
+                    pila.Push(izquierdor - derecho);
+                    formarOperacion(numeroLlamado + 1, izquierdor, derecho, "-");
+                }
             }
             else
             {
                 //epsilon
             }
 
+            formarSalida(numeroLlamado, "</primeraprima>");
         }
 
-        private void segunda()
+        private void segunda(int numeroLlamado)
         {
+            formarEntrada(numeroLlamado, "<segundar>");
+            tercera(numeroLlamado + 1);
+            segundaPrima( numeroLlamado + 1);
+            formarSalida(numeroLlamado, "</segunda>");
 
-            tercera();
-            segundaPrima();
         }
 
-        private void segundaPrima()
+
+        private void segundaPrima(int numeroLlamado)
         {
-            if ("MULTIPLICACION".Equals(componente.obtenerCategoria().ToUpper()))
+            formarEntrada(numeroLlamado, "<segundarprima>");
+            if (CategoriaGramatical.MULTIPLICACION.Equals(componente.obtenerCategoria().ToUpper()))
             {
                 pedirComponente();
-                segunda();
+                segunda(numeroLlamado + 1);
+                if (!ManejadorError.obtenerManejadorError().hayErrores())
+                {
+                    double derecho = pila.Pop();
+                    double izquierdor = pila.Pop();
+
+                    pila.Push(izquierdor * derecho);
+                    formarOperacion(numeroLlamado + 1, izquierdor, derecho, "*");
+                }
+
+
             }
-            else if ("DIVISION".Equals(componente.obtenerCategoria().ToUpper()))
+            else if (CategoriaGramatical.DIVISION.Equals(componente.obtenerCategoria().ToUpper()))
             {
                 pedirComponente();
-                segunda();
+
+                segunda(numeroLlamado + 1);
+                if (!ManejadorError.obtenerManejadorError().hayErrores())
+                {
+                    double derecho = pila.Pop();
+                    double izquierdor = pila.Pop();
+
+                    if(derecho == 0)
+                    {
+                        //Revisar los mensajes
+                        ManejadorError.obtenerManejadorError().agregar(
+                         ComponenteError.crearErrorLexico(componente.obtenerNumeroLinea(), componente.obtenerPosicionInicial(), componente.obtenerPosicionFinal(),
+                         "Se esperaba un digito y se recibio " + componente,
+                         "No es posible formar un numero decimal con caracteres diferentes a digitos",
+                         "Asegurese que en la pocision indicada aparezca un digito"));
+
+                    }else
+                    {
+                        pila.Push(izquierdor / derecho);
+
+                        formarOperacion(numeroLlamado + 1, izquierdor, derecho, "/");
+
+                    }
+                    
+
+                    //Stoper de division 
+
+                }
+
+
             }
             else
             {
                 //epsilon
             }
 
-
+            formarSalida(numeroLlamado, "</segundaprima>");
         }
 
-        private void tercera()
+        private void tercera(int numeroLlamado)
         {
-            if ("ENTERO".Equals(componente.obtenerCategoria().ToUpper()))
-            {
-                pedirComponente();
-            }
-            else if ("DECIMAL".Equals(componente.obtenerCategoria().ToUpper()))
-            {
-                pedirComponente();
-            }
-            else if ("PARENTESIS_ABRE".Equals(componente.obtenerCategoria().ToUpper()))
-            {
-                pedirComponente();
-                primera();
+            formarEntrada(numeroLlamado, "<tercera>");
 
-                if ("PARENTESIS_CIERRA".Equals(componente.obtenerCategoria().ToUpper()))
+            if (CategoriaGramatical.ENTERO.Equals(componente.obtenerCategoria().ToUpper()))
+            {
+                pila.Push(Convert.ToInt32(componente.obtenerLexema()));
+                pedirComponente();
+            }
+            else if (CategoriaGramatical.DECIMAL.Equals(componente.obtenerCategoria().ToUpper()))
+            {
+                pila.Push(Convert.ToDouble(componente.obtenerLexema()));
+                pedirComponente();
+            }
+            else if (CategoriaGramatical.PARENTESIS_ABRE.Equals(componente.obtenerCategoria().ToUpper()))
+            {
+                pedirComponente();
+                primera(numeroLlamado + 1);
+
+                if (CategoriaGramatical.PARENTESIS_CIERRA.Equals(componente.obtenerCategoria().ToUpper()))
                 {
                     pedirComponente();
                 }
@@ -136,6 +258,7 @@ namespace Compilador.AnalisisSintactico
                 //Reportar error
                 throw new Exception("Se presento un error de tipo stopper durante el analizis sintactico , por favor verifique la consola de errores!!!");
             }
+            formarSalida(numeroLlamado, "</tercera>");
         }
     }
 }
